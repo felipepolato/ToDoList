@@ -4,30 +4,27 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    this.state = {};
   }
   render() {
     const {navigation} = this.props;
 
     return (
       <View style={styles.container}>
-      <TouchableOpacity
+        <TouchableOpacity
           onPress={() => navigation.navigate('Afazeres')}
           style={styles.buttonAfazeres}>
           <Text style={styles.text}>Tarefas Afazer</Text>
         </TouchableOpacity>
 
-
-
-      <TouchableOpacity
+        <TouchableOpacity
           onPress={() => navigation.navigate('Tarefas')}
           style={styles.buttonTarefas}>
           <Text style={styles.text}>Tarefas Concluidas</Text>
@@ -42,7 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ccc'
+    backgroundColor: '#ccc',
   },
 
   tabsNavigator: {
@@ -56,7 +53,7 @@ const styles = StyleSheet.create({
   buttonTarefas: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'yellow',    
+    backgroundColor: 'yellow',
     marginTop: 30,
     width: 250,
     height: 50,
@@ -72,7 +69,6 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 24,
-    fontWeight: 'bold'
-
-  }
+    fontWeight: 'bold',
+  },
 });

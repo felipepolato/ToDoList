@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  TextInput,
   ScrollView,
 } from 'react-native';
 
@@ -18,7 +17,7 @@ export default class Tarefas extends React.Component {
   }
 
   render() {
-    const {} = this.props;
+    const {navigation} = this.props;
 
     return (
       <View style={styles.container}>
@@ -49,6 +48,12 @@ export default class Tarefas extends React.Component {
             <Text style={styles.text1}>DD/MM/AAAA</Text>
           </View>
         </ScrollView>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+          style={styles.buttonExit}>
+          <Text style={styles.text}>Voltar</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -78,21 +83,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 
-  buttonTarefas: {
+  buttonExit: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'yellow',
-    marginTop: 30,
+    fontSize: 18,
+    marginBottom: 30,
     width: 250,
-    height: 50,
-  },
-  buttonAfazeres: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'red',
-    marginTop: 30,
-    width: 250,
-    height: 50,
+    height: 80,
   },
 
   text: {

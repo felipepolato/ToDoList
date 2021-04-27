@@ -9,7 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  Alert
+  Alert,
 } from 'react-native';
 
 export default class Register extends React.Component {
@@ -23,8 +23,6 @@ export default class Register extends React.Component {
       senha: '',
     };
   }
-
-  componentDidMount() {}
 
   render() {
     const {navigation} = this.props;
@@ -72,7 +70,7 @@ export default class Register extends React.Component {
               })
               .then(() =>
                 Alert.alert('Alert Title', 'Registrado com sucesso!', [
-                  {text: 'OK', onPress: () => navigation.navigate("Login")},
+                  {text: 'OK', onPress: () => navigation.navigate('Login')},
                 ]),
               )
           }

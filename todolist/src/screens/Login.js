@@ -1,5 +1,7 @@
 import React from 'react';
 
+import database from '@react-native-firebase/database';
+
 import {
   View,
   Text,
@@ -7,6 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 
 export default class Login extends React.Component {
@@ -14,7 +17,7 @@ export default class Login extends React.Component {
     super(props);
 
     this.state = {
-      nome: '',
+      usuario: '',
       senha: '',
     };
   }
@@ -25,21 +28,37 @@ export default class Login extends React.Component {
     return (
       <View style={styles.container}>
         <TextInput
-          value={this.state.nome}
-          onChangeText={text => this.setState({nome: text})}
-          placeholder="Insira Seu Nome"
+          value={this.state.usuario}
+          onChangeText={text => this.setState({usuario: text})}
+          placeholder="Usuário"
           style={styles.inputInformation}
         />
 
         <TextInput
           value={this.state.senha}
           onChangeText={password => this.setState({senha: password})}
-          placeholder="Insira Sua Senha"
+          placeholder="Senha"
           style={styles.inputInformation}
+          secureTextEntry
         />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
+          onPress={() =>
+            database()
+              .ref('/users/0/')
+              .on('value', snapshot => {
+                let tmp = snapshot.val();
+                if (
+                  this.state.usuario === tmp.usuario &&
+                  this.state.senha === tmp.senha
+                ) {
+                  console.log('confere');
+                  navigation.navigate("Home")
+                } else {
+                  console.log('não confere');
+                }
+              })
+          }
           style={styles.buttonSend}>
           <Text>Entrar</Text>
         </TouchableOpacity>

@@ -19,6 +19,12 @@ export default class Home extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
+          onPress={() => navigation.navigate('CreateAfazeres')}
+          style={styles.buttonCriar}>
+          <Text style={styles.text1}>Criar A Fazeres</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           onPress={() => navigation.navigate('Afazeres')}
           style={styles.buttonAfazeres}>
           <Text style={styles.text}>Tarefas A Fazer</Text>
@@ -58,6 +64,17 @@ const styles = StyleSheet.create({
     width: 250,
     height: 50,
   },
+
+  buttonCriar: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    marginTop: 30,
+    width: 250,
+    height: 50,
+    
+  },
+
   buttonAfazeres: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -70,5 +87,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: Dimensions.get('window').width / 18,
     fontWeight: 'bold',
+  },
+
+  text1: {
+    fontSize: Dimensions.get('window').width / 18,
+    fontWeight: 'bold',
+    color: "white"
   },
 });

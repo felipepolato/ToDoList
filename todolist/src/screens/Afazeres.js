@@ -10,6 +10,8 @@ import {
   FlatList,
 } from 'react-native';
 
+import database from '@react-native-firebase/database';
+
 const DATA = [
   {
     tarefa: 'Aula Polato',
@@ -32,7 +34,17 @@ export default class Afazeres extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    database()
+    .ref('/tarefas/')
+    .on('value', snapshot => {
+      this.setState({ data: snapshot.val() });
+    })
   }
 
   render() {
@@ -43,7 +55,7 @@ export default class Afazeres extends React.Component {
         <Text style={styles.text}>Lista de Tarefas A Fazer</Text>
 
         <FlatList
-          data={DATA}
+          data={this.state.data}
           renderItem={({item, index}) => (
             <View style={styles.containerTarefas}>
               <Text style={styles.text1}>{item.tarefa}</Text>

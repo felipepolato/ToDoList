@@ -59,9 +59,20 @@ export default class Register extends React.Component {
         />
 
         <TouchableOpacity
-          onPress={() =>
+          onPress={() => {
+            let lastID = 0;
+
             database()
-              .ref('/users/0/')
+              .ref('/users/')
+              .on('value', snapshot => {
+                let tmp = snapshot.val();
+                if (tmp != null) {
+                  lastID = tmp.length + 1;
+                }
+              });
+
+            database()
+              .ref(`/users/${lastID}/`)
               .set({
                 nome: this.state.nome,
                 sobrenome: this.state.sobrenome,
@@ -72,8 +83,8 @@ export default class Register extends React.Component {
                 Alert.alert('Alert Title', 'Registrado com sucesso!', [
                   {text: 'OK', onPress: () => navigation.navigate('Login')},
                 ]),
-              )
-          }
+              );
+          }}
           style={styles.buttonSend}>
           <Text>Registrar</Text>
         </TouchableOpacity>

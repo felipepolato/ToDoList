@@ -43,7 +43,7 @@ export default class Login extends React.Component {
         />
 
         <TouchableOpacity
-          onPress={() =>
+          onPress={() => {
             database()
               .ref('/users/0/')
               .on('value', snapshot => {
@@ -53,12 +53,12 @@ export default class Login extends React.Component {
                   this.state.senha === tmp.senha
                 ) {
                   console.log('confere');
-                  navigation.navigate("Home")
+                  navigation.navigate('Home');
                 } else {
                   console.log('não confere');
                 }
-              })
-          }
+              });
+          }}
           style={styles.buttonSend}>
           <Text>Entrar</Text>
         </TouchableOpacity>

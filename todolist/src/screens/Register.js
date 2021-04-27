@@ -1,5 +1,7 @@
 import React from 'react';
 
+import database from '@react-native-firebase/database';
+
 import {
   View,
   Text,
@@ -7,6 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  Alert
 } from 'react-native';
 
 export default class Register extends React.Component {
@@ -20,6 +23,8 @@ export default class Register extends React.Component {
       senha: '',
     };
   }
+
+  componentDidMount() {}
 
   render() {
     const {navigation} = this.props;
@@ -52,10 +57,25 @@ export default class Register extends React.Component {
           onChangeText={password => this.setState({senha: password})}
           placeholder="Insira Sua Senha"
           style={styles.inputInformation}
+          secureTextEntry
         />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
+          onPress={() =>
+            database()
+              .ref('/users/0/')
+              .set({
+                nome: this.state.nome,
+                sobrenome: this.state.sobrenome,
+                usuario: this.state.usuario,
+                senha: this.state.senha,
+              })
+              .then(() =>
+                Alert.alert('Alert Title', 'Registrado com sucesso!', [
+                  {text: 'OK', onPress: () => navigation.navigate("Login")},
+                ]),
+              )
+          }
           style={styles.buttonSend}>
           <Text>Registrar</Text>
         </TouchableOpacity>

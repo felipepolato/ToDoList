@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "98434052544",
+    "firebase_url": "https://estudo-polato-default-rtdb.firebaseio.com",
     "project_id": "estudo-polato",
     "storage_bucket": "estudo-polato.appspot.com"
   },
@@ -10,6 +11,35 @@
         "mobilesdk_app_id": "1:98434052544:android:55650fc83f4b097d439825",
         "android_client_info": {
           "package_name": "To.Do.List"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98434052544-124vo6smhuup7rsdp65iaco3qac2rt6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-O0OdAaSVuIZGxnAdQnaLLIoo0rHQlus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98434052544-124vo6smhuup7rsdp65iaco3qac2rt6s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98434052544:android:a88d1822d7cc43a1439825",
+        "android_client_info": {
+          "package_name": "com.todolist"
         }
       },
       "oauth_client": [

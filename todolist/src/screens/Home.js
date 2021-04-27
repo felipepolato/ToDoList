@@ -21,7 +21,7 @@ export default class Home extends React.Component {
         <TouchableOpacity
           onPress={() => navigation.navigate('Afazeres')}
           style={styles.buttonAfazeres}>
-          <Text style={styles.text}>Tarefas Afazer</Text>
+          <Text style={styles.text}>Tarefas A Fazer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity

@@ -35,14 +35,14 @@ export default class Register extends React.Component {
 
         <TextInput
           value={this.state.sobrenome}
-          onChangeText={sobrenome => this.setState({senha: sobrenome})}
+          onChangeText={sobrenome => this.setState({sobrenome: sobrenome})}
           placeholder="Insira Seu Sobrenome"
           style={styles.inputInformation}
         />
 
         <TextInput
           value={this.state.usuario}
-          onChangeText={usuario => this.setState({senha: usuario})}
+          onChangeText={usuario => this.setState({usuario: usuario})}
           placeholder="Insira Seu Usuario"
           style={styles.inputInformation}
         />

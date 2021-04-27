@@ -21,7 +21,7 @@ export default class Afazeres extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Lista de Tarefas Afazer</Text>
+        <Text style={styles.text}>Lista de Tarefas A Fazer</Text>
 
         <ScrollView>
           <View style={styles.containerTarefas}>
@@ -87,20 +87,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'yellow',
-    fontSize: 18,
+    fontSize: Dimensions.get('window').width / 18,
     marginBottom: 30,
     width: 250,
     height: 80,
   },
 
   text: {
-    fontSize: 24,
+    fontSize: Dimensions.get('window').width / 18,
     fontWeight: 'bold',
     margin: 15,
   },
 
   text1: {
-    fontSize: 24,
+    fontSize: Dimensions.get('window').width / 18,
     margin: 15,
   },
 });

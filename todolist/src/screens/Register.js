@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'yellow',
-    fontSize: 18,
+    fontSize: Dimensions.get('window').width / 18,
     marginTop: 30,
     width: 250,
     height: 50,
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 
   inputInformation: {
     backgroundColor: 'white',
-    fontSize: 18,
+    fontSize: Dimensions.get('window').width / 18,
     marginTop: 10,
     width: 250,
   },

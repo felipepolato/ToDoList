@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 24,
+    fontSize: Dimensions.get('window').width / 18,
     fontWeight: 'bold',
   },
 });

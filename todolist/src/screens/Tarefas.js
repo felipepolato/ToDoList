@@ -7,7 +7,26 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from 'react-native';
+
+const DATA = [
+  {
+    tarefa: 'Aula Polato',
+    nome: 'Antonio',
+    data: '27/04/2021',
+  },
+  {
+    tarefa: 'Aula Polato',
+    nome: 'Antonio',
+    data: '27/04/2021',
+  },
+  {
+    tarefa: 'Aula Polato',
+    nome: 'Antonio',
+    data: '27/04/2021',
+  },
+];
 
 export default class Tarefas extends React.Component {
   constructor(props) {
@@ -23,31 +42,17 @@ export default class Tarefas extends React.Component {
       <View style={styles.container}>
         <Text style={styles.text}>Lista de Tarefas Concluidas</Text>
 
-        <ScrollView>
-          <View style={styles.containerTarefas}>
-            <Text style={styles.text1}>TAREFA</Text>
-            <Text style={styles.text1}>NOME</Text>
-            <Text style={styles.text1}>DD/MM/AAAA</Text>
-          </View>
-
-          <View style={styles.containerTarefas}>
-            <Text style={styles.text1}>TAREFA</Text>
-            <Text style={styles.text1}>NOME</Text>
-            <Text style={styles.text1}>DD/MM/AAAA</Text>
-          </View>
-
-          <View style={styles.containerTarefas}>
-            <Text style={styles.text1}>TAREFA</Text>
-            <Text style={styles.text1}>NOME</Text>
-            <Text style={styles.text1}>DD/MM/AAAA</Text>
-          </View>
-
-          <View style={styles.containerTarefas}>
-            <Text style={styles.text1}>TAREFA</Text>
-            <Text style={styles.text1}>NOME</Text>
-            <Text style={styles.text1}>DD/MM/AAAA</Text>
-          </View>
-        </ScrollView>
+        <FlatList
+          data={DATA}
+          renderItem={({item, index}) => (
+            <View style={styles.containerTarefas}>
+              <Text style={styles.text1}>{item.tarefa}</Text>
+              <Text style={styles.text1}>{item.nome}</Text>
+              <Text style={styles.text1}>{item.data}</Text>
+            </View>
+          )}
+          keyExtractor={item => item.id}
+        />
 
         <TouchableOpacity
           onPress={() => navigation.navigate('Home')}
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
   },
 
   text1: {
-    fontSize: 24,
+    fontSize: Dimensions.get('window').width / 18,
     margin: 15,
   },
 });

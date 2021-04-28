@@ -9,6 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from 'react-native';
 
 export default class Register extends React.Component {
@@ -48,52 +49,64 @@ export default class Register extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.textHello}>Seu Cadastro!</Text>
+        <ScrollView style={{flex: 1}}>
+          <View
+            style={{
+              width: Dimensions.get('window').width,
+              height: Dimensions.get('window').height,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.textHello}>Seu Cadastro!</Text>
 
-        <View style={styles.container2}>
-          <TextInput
-            value={this.state.nome}
-            onChangeText={text => this.setState({nome: text})}
-            placeholder="Nome"
-            style={styles.inputInformation}
-          />
+            <View style={styles.container2}>
+              <TextInput
+                value={this.state.nome}
+                onChangeText={text => this.setState({nome: text})}
+                placeholder="Nome"
+                style={styles.inputInformation}
+              />
+ 
+              <TextInput
+                value={this.state.sobrenome}
+                onChangeText={sobrenome =>
+                  this.setState({sobrenome: sobrenome})
+                }
+                placeholder="Sobrenome"
+                style={styles.inputInformation}
+              />
 
-          <TextInput
-            value={this.state.sobrenome}
-            onChangeText={sobrenome => this.setState({sobrenome: sobrenome})}
-            placeholder="Sobrenome"
-            style={styles.inputInformation}
-          />
+              <TextInput
+                value={this.state.usuario}
+                onChangeText={usuario => this.setState({usuario: usuario})}
+                placeholder="Usuário"
+                style={styles.inputInformation}
+              />
 
-          <TextInput
-            value={this.state.usuario}
-            onChangeText={usuario => this.setState({usuario: usuario})}
-            placeholder="Usuário"
-            style={styles.inputInformation}
-          />
+              <TextInput
+                value={this.state.senha}
+                onChangeText={password => this.setState({senha: password})}
+                placeholder="Senha"
+                style={styles.inputInformation}
+                secureTextEntry
+              />
 
-          <TextInput
-            value={this.state.senha}
-            onChangeText={password => this.setState({senha: password})}
-            placeholder="Senha"
-            style={styles.inputInformation}
-            secureTextEntry
-          />
-
-          <TouchableOpacity
-            onPress={async () => {
-              database().ref(`/users/${this.state.lastID}/`).set({
-                nome: this.state.nome,
-                sobrenome: this.state.sobrenome,
-                usuario: this.state.usuario,
-                senha: this.state.senha,
-              });
-              navigation.navigate('Home');
-            }}
-            style={styles.buttonSend}>
-            <Text style={styles.textBottom}>Registrar</Text>
-          </TouchableOpacity>
-        </View>
+              <TouchableOpacity
+                onPress={async () => {
+                  database().ref(`/users/${this.state.lastID}/`).set({
+                    nome: this.state.nome,
+                    sobrenome: this.state.sobrenome,
+                    usuario: this.state.usuario,
+                    senha: this.state.senha,
+                  });
+                  navigation.navigate('Home');
+                }}
+                style={styles.buttonSend}>
+                <Text style={styles.textBottom}>Registrar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -111,7 +124,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 10,
     width: Dimensions.get('window').width / 1.4,
-    height: '50%',
     paddingLeft: 22,
     paddingTop: 30,
     borderRadius: 10,
@@ -135,7 +147,6 @@ const styles = StyleSheet.create({
     width: 250,
     height: 50,
     borderRadius: 8,
-    
   },
 
   inputInformation: {
@@ -147,7 +158,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#084d6e',
     borderRadius: 8,
-    textAlign: "center"
+    textAlign: 'center',
   },
 
   textBottom: {
@@ -161,6 +172,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 30,
-    
   },
 });

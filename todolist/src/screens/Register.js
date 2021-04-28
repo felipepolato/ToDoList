@@ -9,7 +9,6 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  Alert,
 } from 'react-native';
 
 export default class Register extends React.Component {
@@ -63,27 +62,20 @@ export default class Register extends React.Component {
             let lastID = 0;
 
             database()
-              .ref('/users/')
+              .ref('/tarefas/')
               .on('value', snapshot => {
                 let tmp = snapshot.val();
                 if (tmp != null) {
                   lastID = tmp.length + 1;
                 }
-              });
 
-            database()
-              .ref(`/users/${lastID}/`)
-              .set({
-                nome: this.state.nome,
-                sobrenome: this.state.sobrenome,
-                usuario: this.state.usuario,
-                senha: this.state.senha,
-              })
-              .then(() =>
-                Alert.alert('Alert Title', 'Registrado com sucesso!', [
-                  {text: 'OK', onPress: () => navigation.navigate('Login')},
-                ]),
-              );
+                database().ref(`/users/${lastID}/`).set({
+                  nome: this.state.nome,
+                  sobrenome: this.state.sobrenome,
+                  usuario: this.state.usuario,
+                  senha: this.state.senha,
+                });
+              });
           }}
           style={styles.buttonSend}>
           <Text>Registrar</Text>

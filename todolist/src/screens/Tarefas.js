@@ -6,33 +6,24 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  ScrollView,
   FlatList,
 } from 'react-native';
-
-const DATA = [
-  {
-    tarefa: 'Aula Polato',
-    nome: 'Antonio',
-    data: '27/04/2021',
-  },
-  {
-    tarefa: 'Aula Polato',
-    nome: 'Antonio',
-    data: '27/04/2021',
-  },
-  {
-    tarefa: 'Aula Polato',
-    nome: 'Antonio',
-    data: '27/04/2021',
-  },
-];
 
 export default class Tarefas extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      data: [],
+    };
+  }
+
+  componentDidMount() {
+    database()
+      .ref('/tarefas/')
+      .on('value', snapshot => {
+        this.setState({data: snapshot.val()});
+      });
   }
 
   render() {
@@ -43,7 +34,7 @@ export default class Tarefas extends React.Component {
         <Text style={styles.text}>Lista de Tarefas Concluidas</Text>
 
         <FlatList
-          data={DATA}
+          data={this.state.data}
           renderItem={({item, index}) => (
             <View style={styles.containerTarefas}>
               <Text style={styles.text1}>{item.tarefa}</Text>

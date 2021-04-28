@@ -9,7 +9,6 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  Alert,
 } from 'react-native';
 
 export default class Login extends React.Component {

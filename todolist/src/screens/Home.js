@@ -19,22 +19,23 @@ export default class Home extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.container2}>
+        <Text style={styles.text}>TAREFAS</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('CreateAfazeres')}
             style={styles.buttonCriar}>
-            <Text style={styles.text1}>Criar Tarefa</Text>
+            <Text style={styles.text1}>Criar</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('Afazeres')}
             style={styles.buttonAfazeres}>
-            <Text style={styles.text1}>Fazer Tarefa</Text>
+            <Text style={styles.text1}>Fazer</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('Tarefas')}
             style={styles.buttonTarefas}>
-            <Text style={styles.text1}>Tarefas Concluidas</Text>
+            <Text style={styles.text1}>Concluidas</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -101,5 +102,13 @@ const styles = StyleSheet.create({
     fontSize: Dimensions.get('window').width / 18,
     fontWeight: 'bold',
     color: 'white',
+  },
+
+  text: {
+    fontSize: Dimensions.get('window').width / 18,
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: 53
   },
 });

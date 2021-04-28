@@ -192,5 +192,6 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: Dimensions.get('window').width / 18,
     fontWeight: 'bold',
+    marginLeft: 10
   },
 });

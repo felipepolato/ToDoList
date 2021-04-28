@@ -6,45 +6,26 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  ScrollView,
   FlatList,
 } from 'react-native';
 
 import database from '@react-native-firebase/database';
-
-const DATA = [
-  {
-    tarefa: 'Aula Polato',
-    nome: 'Antonio',
-    data: '27/04/2021',
-  },
-  {
-    tarefa: 'Aula Polato',
-    nome: 'Antonio',
-    data: '27/04/2021',
-  },
-  {
-    tarefa: 'Aula Polato',
-    nome: 'Antonio',
-    data: '27/04/2021',
-  },
-];
 
 export default class Afazeres extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
     };
   }
 
   componentDidMount() {
     database()
-    .ref('/tarefas/')
-    .on('value', snapshot => {
-      this.setState({ data: snapshot.val() });
-    })
+      .ref('/tarefas/')
+      .on('value', snapshot => {
+        this.setState({data: snapshot.val()});
+      });
   }
 
   render() {

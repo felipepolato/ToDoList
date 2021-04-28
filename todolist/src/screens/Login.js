@@ -72,7 +72,7 @@ export default class Login extends React.Component {
                     });
                 }}
                 style={styles.buttonSend}>
-                <Text>Entrar</Text>
+                <Text style={styles.textBottom}>Entrar</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -136,5 +136,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 30,
+  },
+
+  textBottom: {
+    fontSize: Dimensions.get('window').width / 20,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });

@@ -54,28 +54,28 @@ export default class Register extends React.Component {
           <TextInput
             value={this.state.nome}
             onChangeText={text => this.setState({nome: text})}
-            placeholder="Insira Seu Nome"
+            placeholder="Nome"
             style={styles.inputInformation}
           />
 
           <TextInput
             value={this.state.sobrenome}
             onChangeText={sobrenome => this.setState({sobrenome: sobrenome})}
-            placeholder="Insira Seu Sobrenome"
+            placeholder="Sobrenome"
             style={styles.inputInformation}
           />
 
           <TextInput
             value={this.state.usuario}
             onChangeText={usuario => this.setState({usuario: usuario})}
-            placeholder="Insira Seu Usuario"
+            placeholder="Usuário"
             style={styles.inputInformation}
           />
 
           <TextInput
             value={this.state.senha}
             onChangeText={password => this.setState({senha: password})}
-            placeholder="Insira Sua Senha"
+            placeholder="Senha"
             style={styles.inputInformation}
             secureTextEntry
           />
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#084d6e',
     borderRadius: 8,
+    textAlign: "center"
   },
 
   textBottom: {

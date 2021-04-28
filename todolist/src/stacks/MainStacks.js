@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export default () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"  
+      initialRouteName="CreateAfazeres"  
       screenOptions={{
         headerShown: false,
       }}>

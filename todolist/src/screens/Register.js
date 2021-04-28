@@ -115,6 +115,15 @@ const styles = StyleSheet.create({
     paddingLeft: 22,
     paddingTop: 30,
     borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.41,
+    shadowRadius: 9.11,
+
+    elevation: 14,
   },
 
   buttonSend: {
@@ -125,15 +134,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: 250,
     height: 50,
-  },
-  buttonSend: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#084d6e',
-    fontSize: Dimensions.get('window').width / 18,
-    marginTop: 30,
-    width: 250,
-    height: 50,
+    borderRadius: 8,
+    
   },
 
   inputInformation: {
@@ -142,8 +144,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 250,
     borderStyle: 'solid',
-    borderWidth: 3,
+    borderWidth: 1.5,
     borderColor: '#084d6e',
+    borderRadius: 8,
   },
 
   textBottom: {
@@ -156,6 +159,7 @@ const styles = StyleSheet.create({
     fontSize: Dimensions.get('window').width / 12,
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: 30
+    marginBottom: 30,
+    
   },
 });

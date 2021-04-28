@@ -57,13 +57,6 @@ export default class CreateAfazeres extends React.Component {
         />
 
         <TextInput
-          value={this.state.tarefa}
-          onChangeText={tarefa => this.setState({tarefa: tarefa})}
-          placeholder="Tarefa"
-          style={styles.inputInformation}
-        />
-
-        <TextInput
           value={this.state.nome}
           onChangeText={nome => this.setState({nome: nome})}
           placeholder="Nome"

@@ -20,7 +20,27 @@ export default class Register extends React.Component {
       sobrenome: '',
       usuario: '',
       senha: '',
+      mandou: false,
+      lastID: 0,
     };
+  }
+
+  componentDidMount() {
+    database()
+      .ref('/users/')
+      .on('value', snapshot => {
+        let tmp = snapshot.val();
+        console.log(tmp);
+
+        let id = 0;
+
+        if (tmp != null) {
+          for (let loop in tmp) {
+            id++;
+          }
+          this.setState({lastID: id});
+        }
+      });
   }
 
   render() {
@@ -28,58 +48,52 @@ export default class Register extends React.Component {
 
     return (
       <View style={styles.container}>
-        <TextInput
-          value={this.state.nome}
-          onChangeText={text => this.setState({nome: text})}
-          placeholder="Insira Seu Nome"
-          style={styles.inputInformation}
-        />
+        <Text style={styles.textHello}>Seu Cadastro!</Text>
 
-        <TextInput
-          value={this.state.sobrenome}
-          onChangeText={sobrenome => this.setState({sobrenome: sobrenome})}
-          placeholder="Insira Seu Sobrenome"
-          style={styles.inputInformation}
-        />
+        <View style={styles.container2}>
+          <TextInput
+            value={this.state.nome}
+            onChangeText={text => this.setState({nome: text})}
+            placeholder="Insira Seu Nome"
+            style={styles.inputInformation}
+          />
 
-        <TextInput
-          value={this.state.usuario}
-          onChangeText={usuario => this.setState({usuario: usuario})}
-          placeholder="Insira Seu Usuario"
-          style={styles.inputInformation}
-        />
+          <TextInput
+            value={this.state.sobrenome}
+            onChangeText={sobrenome => this.setState({sobrenome: sobrenome})}
+            placeholder="Insira Seu Sobrenome"
+            style={styles.inputInformation}
+          />
 
-        <TextInput
-          value={this.state.senha}
-          onChangeText={password => this.setState({senha: password})}
-          placeholder="Insira Sua Senha"
-          style={styles.inputInformation}
-          secureTextEntry
-        />
+          <TextInput
+            value={this.state.usuario}
+            onChangeText={usuario => this.setState({usuario: usuario})}
+            placeholder="Insira Seu Usuario"
+            style={styles.inputInformation}
+          />
 
-        <TouchableOpacity
-          onPress={() => {
-            let lastID = 0;
+          <TextInput
+            value={this.state.senha}
+            onChangeText={password => this.setState({senha: password})}
+            placeholder="Insira Sua Senha"
+            style={styles.inputInformation}
+            secureTextEntry
+          />
 
-            database()
-              .ref('/tarefas/')
-              .on('value', snapshot => {
-                let tmp = snapshot.val();
-                if (tmp != null) {
-                  lastID = tmp.length + 1;
-                }
-
-                database().ref(`/users/${lastID}/`).set({
-                  nome: this.state.nome,
-                  sobrenome: this.state.sobrenome,
-                  usuario: this.state.usuario,
-                  senha: this.state.senha,
-                });
+          <TouchableOpacity
+            onPress={async () => {
+              database().ref(`/users/${this.state.lastID}/`).set({
+                nome: this.state.nome,
+                sobrenome: this.state.sobrenome,
+                usuario: this.state.usuario,
+                senha: this.state.senha,
               });
-          }}
-          style={styles.buttonSend}>
-          <Text>Registrar</Text>
-        </TouchableOpacity>
+              navigation.navigate('Home');
+            }}
+            style={styles.buttonSend}>
+            <Text style={styles.textBottom}>Registrar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -90,13 +104,32 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ccc',
+    backgroundColor: '#084d6e',
+  },
+
+  container2: {
+    backgroundColor: '#fff',
+    padding: 10,
+    width: Dimensions.get('window').width / 1.4,
+    height: '50%',
+    paddingLeft: 22,
+    paddingTop: 30,
+    borderRadius: 10,
   },
 
   buttonSend: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'yellow',
+    backgroundColor: '#084d6e',
+    fontSize: Dimensions.get('window').width / 18,
+    marginTop: 30,
+    width: 250,
+    height: 50,
+  },
+  buttonSend: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#084d6e',
     fontSize: Dimensions.get('window').width / 18,
     marginTop: 30,
     width: 250,
@@ -108,5 +141,21 @@ const styles = StyleSheet.create({
     fontSize: Dimensions.get('window').width / 18,
     marginTop: 10,
     width: 250,
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderColor: '#084d6e',
+  },
+
+  textBottom: {
+    fontSize: Dimensions.get('window').width / 20,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+
+  textHello: {
+    fontSize: Dimensions.get('window').width / 12,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 30
   },
 });

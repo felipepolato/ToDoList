@@ -39,12 +39,12 @@ export default class Afazeres extends React.Component {
     setTimeout(() => {
       database()
         .ref(`/tarefas/${this.state.userid}/`)
-        .on('value', snapshot => {          
+        .on('value', snapshot => {
           let tmp = snapshot.val();
           let result = [];
-          for(let loop in tmp){
-            if(tmp[loop] == null) continue; 
-            if(tmp[loop].status === 'pendente'){
+          for (let loop in tmp) {
+            if (tmp[loop] == null) continue;
+            if (tmp[loop].status === 'pendente') {
               result.push(tmp[loop]);
             }
           }
@@ -67,7 +67,7 @@ export default class Afazeres extends React.Component {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderColor: 'rgba(0,0,0.1)',
-                borderWidth: 0.2
+                borderWidth: 0.2,
               }}>
               <Text style={styles.text3}>Tarefa</Text>
             </View>
@@ -77,17 +77,17 @@ export default class Afazeres extends React.Component {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderColor: 'rgba(0,0,0.1)',
-                borderWidth: 0.2
+                borderWidth: 0.2,
               }}>
               <Text style={styles.text3}>Nome</Text>
             </View>
-            <View 
+            <View
               style={{
                 width: '30%',
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderColor: 'rgba(0,0,0.1)',
-                borderWidth: 0.2
+                borderWidth: 0.2,
               }}>
               <Text style={styles.text3}>Data</Text>
             </View>
@@ -98,40 +98,45 @@ export default class Afazeres extends React.Component {
             renderItem={({item, index}) => {
               const myNome = item.nome;
               return (
-              <TouchableOpacity 
-                onPress={()=> 
-                   database().ref(`/tarefas/${this.state.userid}/${item.id}`)
-                   .update({
-                     status: "concluido"
-                   })
-                }
-                style={styles.containerTarefas}
-              >
-                <View
-                  style={{ 
-                    width: '40%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text style={styles.text2}>{item.tarefa}</Text>
-                </View>
-                <View
-                  style={{
-                    width: '30%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text style={styles.text2}>{myNome.length > 15 ? myNome.substring(0, 15) + "..." : myNome}</Text>
-                </View>
-                <View
-                  style={{
-                    width: '30%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text style={styles.text2}>{item.data}</Text>
-                </View>
-              </TouchableOpacity>);
+                <TouchableOpacity
+                  onPress={() =>
+                    database()
+                      .ref(`/tarefas/${this.state.userid}/${item.id}`)
+                      .update({
+                        status: 'concluido',
+                      })
+                  }
+                  style={styles.containerTarefas}>
+                  <View
+                    style={{
+                      width: '40%',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text style={styles.text2}>{item.tarefa}</Text>
+                  </View>
+                  <View
+                    style={{
+                      width: '30%',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text style={styles.text2}>
+                      {myNome.length > 15
+                        ? myNome.substring(0, 15) + '...'
+                        : myNome}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: '30%',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text style={styles.text2}>{item.data}</Text>
+                  </View>
+                </TouchableOpacity>
+              );
             }}
             keyExtractor={item => item.id}
           />
@@ -178,7 +183,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-
   },
 
   containerTarefas: {

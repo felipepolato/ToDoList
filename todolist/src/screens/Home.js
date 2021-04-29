@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props);

@@ -11,6 +11,8 @@ import {
 
 import database from '@react-native-firebase/database';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default class Afazeres extends React.Component {
   constructor(props) {
     super(props);
@@ -21,8 +23,17 @@ export default class Afazeres extends React.Component {
   }
 
   componentDidMount() {
+    const getData = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('@storage_Key');
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+      } catch (e) {
+        // error reading value
+      }
+    };
+
     database()
-      .ref('/tarefas/')
+      .ref(`/tarefas/${getData()}/`)
       .on('value', snapshot => {
         this.setState({data: snapshot.val()});
       });

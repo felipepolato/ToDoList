@@ -29,13 +29,7 @@ export default class CreateAfazeres extends React.Component {
   render() {
     const {navigation} = this.props;
 
-    const storeData = async value => {
-      try {
-        await AsyncStorage.setItem('@storage_Key', value);
-      } catch (e) {
-        // saving error
-      }
-    };
+ 
 
     const getData = async () => {
       try {
@@ -85,7 +79,7 @@ export default class CreateAfazeres extends React.Component {
                   let lastID = 0;
 
                   database()
-                    .ref('/tarefas/')
+                    .ref(`/tarefas/${getData()}/`)
                     .on('value', snapshot => {
                       let tmp = snapshot.val();
                       if (tmp != null) {
@@ -93,7 +87,7 @@ export default class CreateAfazeres extends React.Component {
                       }
                     });
 
-                  database().ref(`/tarefas/${lastID}/`).set({
+                  database().ref(`/tarefas/${getData()}/${lastID}/`).set({
                     tarefa: this.state.tarefa,
                     nome: this.state.nome,
                     data: this.state.data,

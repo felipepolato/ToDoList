@@ -12,6 +12,8 @@ import {
   ScrollView,
 } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,18 @@ export default class Login extends React.Component {
     };
   }
 
+
+
   render() {
+
+    const storeData = async value => {
+      try {
+        await AsyncStorage.setItem('@storage_Key', value);
+      } catch (e) {
+        // saving error
+      }
+    };
+
     const {navigation} = this.props;
 
     return (
@@ -57,17 +70,21 @@ export default class Login extends React.Component {
               <TouchableOpacity
                 onPress={() => {
                   database()
-                    .ref('/users/0/')
+                    .ref('/users/')
                     .on('value', snapshot => {
                       let tmp = snapshot.val();
-                      if (
-                        this.state.usuario === tmp.usuario &&
-                        this.state.senha === tmp.senha
-                      ) {
-                        console.log('confere');
-                        navigation.navigate('Home');
-                      } else {
-                        console.log('não confere');
+
+                      for(let loop in tmp){
+                        if(tmp[loop] == null) continue;
+                        if (
+                          this.state.usuario === tmp[loop].usuario &&
+                          this.state.senha === tmp[loop].senha
+                        ) {
+                          console.log('confere');
+                          navigation.navigate('Home');
+                          storeData(loop)
+                        }
+
                       }
                     });
                 }}

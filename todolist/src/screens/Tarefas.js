@@ -9,6 +9,8 @@ import {
   FlatList,
 } from 'react-native';
 
+import database from '@react-native-firebase/database';
+
 export default class Tarefas extends React.Component {
   constructor(props) {
     super(props);

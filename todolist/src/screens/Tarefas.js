@@ -11,21 +11,46 @@ import {
 
 import database from '@react-native-firebase/database';
 
-export default class Tarefas extends React.Component {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export default class Afazeres extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       data: [],
+      userid: '',
     };
   }
 
+  getUser = async () => {
+    let finalResult = '';
+    try {
+      const result = await AsyncStorage.getItem('userid');
+      finalResult = result;
+    } catch (error) {
+      console.log(error);
+    }
+    this.setState({userid: finalResult});
+  };
+
   componentDidMount() {
-    database()
-      .ref('/tarefas/')
-      .on('value', snapshot => {
-        this.setState({data: snapshot.val()});
-      });
+    this.getUser();
+    setTimeout(() => {
+      database()
+        .ref(`/tarefas/${this.state.userid}/`)
+        .on('value', snapshot => {          
+          let tmp = snapshot.val();
+          let result = [];
+          for(let loop in tmp){
+            if(tmp[loop] == null) continue;
+            if(tmp[loop].status === 'concluido'){
+              result.push(tmp[loop]);
+            }
+          }
+          this.setState({data: result});
+        });
+    }, 200);
   }
 
   render() {
@@ -33,25 +58,90 @@ export default class Tarefas extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Lista de Tarefas Concluidas</Text>
-
-        <FlatList
-          data={this.state.data}
-          renderItem={({item, index}) => (
-            <View style={styles.containerTarefas}>
-              <Text style={styles.text1}>{item.tarefa}</Text>
-              <Text style={styles.text1}>{item.nome}</Text>
-              <Text style={styles.text1}>{item.data}</Text>
+        <Text style={styles.text}>Tarefas Concluídas</Text>
+        <View style={styles.container2}>
+          <View style={styles.topList}>
+            <View
+              style={{
+                width: '40%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderColor: 'rgba(0,0,0.1)',
+                borderWidth: 0.2
+              }}>
+              <Text style={styles.text3}>Tarefa</Text>
             </View>
-          )}
-          keyExtractor={item => item.id}
-        />
+            <View
+              style={{
+                width: '30%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderColor: 'rgba(0,0,0.1)',
+                borderWidth: 0.2
+              }}>
+              <Text style={styles.text3}>Nome</Text>
+            </View>
+            <View
+              style={{
+                width: '30%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderColor: 'rgba(0,0,0.1)',
+                borderWidth: 0.2
+              }}>
+              <Text style={styles.text3}>Data</Text>
+            </View>
+          </View>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
-          style={styles.buttonExit}>
-          <Text style={styles.text}>Voltar</Text>
-        </TouchableOpacity>
+          <FlatList
+            data={this.state.data}
+            renderItem={({item, index}) => {
+              const myNome = item.nome;
+              return (
+              <TouchableOpacity 
+                onPress={()=> 
+                   database().ref(`/tarefas/${this.state.userid}/${item.id}`)
+                   .update({
+                     status: "pendente"
+                   })
+                }
+                style={styles.containerTarefas}
+              >
+                <View
+                  style={{ 
+                    width: '40%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.text2}>{item.tarefa}</Text>
+                </View>
+                <View
+                  style={{
+                    width: '30%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.text2}>{myNome.length > 15 ? myNome.substring(0, 15) + "..." : myNome}</Text>
+                </View>
+                <View
+                  style={{
+                    width: '30%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.text2}>{item.data}</Text>
+                </View>
+              </TouchableOpacity>);
+            }}
+            keyExtractor={item => item.id}
+          />
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+            style={styles.buttonExit}>
+            <Text style={styles.text1}>Voltar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -62,43 +152,80 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ccc',
+    backgroundColor: '#084d6e',
+  },
+
+  container2: {
+    backgroundColor: '#fff',
+    width: '90%',
+    height: Dimensions.get('window').height / 1.4,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.41,
+    shadowRadius: 9.11,
+
+    elevation: 14,
+  },
+
+  topList: {
+    marginTop: 20,
+    width: '100%',
+    height: Dimensions.get('window').width / 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
 
   containerTarefas: {
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'row',
-    backgroundColor: '#ccc',
-  },
-
-  tabsNavigator: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: Dimensions.get('window').width,
-    padding: 10,
+    backgroundColor: '#8cb0bf',
+    width: '100%',
+    height: Dimensions.get('window').width / 10,
   },
 
   buttonExit: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'yellow',
-    fontSize: 18,
-    marginBottom: 30,
-    width: 250,
-    height: 80,
+    backgroundColor: '#084d6e',
+    fontSize: Dimensions.get('window').width / 18,
+    height: 70,
+    borderRadius: 8,
+    margin: 20,
   },
 
   text: {
-    fontSize: 24,
+    fontSize: Dimensions.get('window').width / 14,
     fontWeight: 'bold',
-    margin: 15,
+    marginTop: 20,
+    marginBottom: 20,
+    color: 'white',
   },
 
   text1: {
-    fontSize: Dimensions.get('window').width / 18,
+    fontSize: Dimensions.get('window').width / 15,
     margin: 15,
+    color: 'white',
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+  },
+
+  text2: {
+    fontSize: Dimensions.get('window').width / 24,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+
+  text3: {
+    fontSize: Dimensions.get('window').width / 24,
+    color: 'black',
+    fontWeight: 'bold',
   },
 });

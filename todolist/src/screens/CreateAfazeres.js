@@ -24,6 +24,7 @@ export default class CreateAfazeres extends React.Component {
       nome: '',
       data: '',
       userid: '',
+      lastID: 0
     };
   }
 
@@ -37,6 +38,26 @@ export default class CreateAfazeres extends React.Component {
     }
     this.setState({userid: finalResult});
   };
+
+  componentDidMount() {
+    this.getUser();
+    database()
+      .ref(`/tarefas/${this.state.userid}/`)
+      .on('value', snapshot => {
+        let tmp = snapshot.val();
+        console.log(tmp);
+
+        let id = 0;
+
+        if (tmp != null) {
+          for (let loop in tmp) {
+            id++;
+          }
+          this.setState({lastID: id});
+        }
+      });
+  }
+
 
   render() {
     const {navigation} = this.props;
@@ -79,24 +100,17 @@ export default class CreateAfazeres extends React.Component {
                 onPress={() => {
                   this.getUser();
                   setTimeout(() => {
-                    let lastID = 0;
 
                     database()
-                      .ref(`/tarefas/${this.state.userid}/`)
-                      .on('value', snapshot => {
-                        let tmp = snapshot.val();
-                        if (tmp != null) {
-                          lastID = tmp.length + 1;
-                        }
-                      });
-
-                    database()
-                      .ref(`/tarefas/${this.state.userid}/${lastID}/`)
+                      .ref(`/tarefas/${this.state.userid}/${this.state.lastID}/`)
                       .set({
                         tarefa: this.state.tarefa,
                         nome: this.state.nome,
                         data: this.state.data,
+                        status: 'pendente',
+                        id: this.state.lastID
                       });
+                      
                     Alert.alert(
                       'Alert Title',
                       'Tarefa Registrada Com Sucesso!',

@@ -39,8 +39,16 @@ export default class Afazeres extends React.Component {
     setTimeout(() => {
       database()
         .ref(`/tarefas/${this.state.userid}/`)
-        .on('value', snapshot => {
-          this.setState({data: snapshot.val()});
+        .on('value', snapshot => {          
+          let tmp = snapshot.val();
+          let result = [];
+          for(let loop in tmp){
+            if(tmp[loop] == null) continue; 
+            if(tmp[loop].status === 'pendente'){
+              result.push(tmp[loop]);
+            }
+          }
+          this.setState({data: result});
         });
     }, 200);
   }
@@ -55,7 +63,7 @@ export default class Afazeres extends React.Component {
           <View style={styles.topList}>
             <View
               style={{
-                width: '50%',
+                width: '40%',
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderColor: 'rgba(0,0,0.1)',
@@ -65,7 +73,7 @@ export default class Afazeres extends React.Component {
             </View>
             <View
               style={{
-                width: '25%',
+                width: '30%',
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderColor: 'rgba(0,0,0.1)',
@@ -73,9 +81,9 @@ export default class Afazeres extends React.Component {
               }}>
               <Text style={styles.text3}>Nome</Text>
             </View>
-            <View
+            <View 
               style={{
-                width: '25%',
+                width: '30%',
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderColor: 'rgba(0,0,0.1)',
@@ -89,10 +97,19 @@ export default class Afazeres extends React.Component {
             data={this.state.data}
             renderItem={({item, index}) => {
               const myNome = item.nome;
-              return (<View style={styles.containerTarefas}>
+              return (
+              <TouchableOpacity 
+                onPress={()=> 
+                   database().ref(`/tarefas/${this.state.userid}/${item.id}`)
+                   .update({
+                     status: "concluido"
+                   })
+                }
+                style={styles.containerTarefas}
+              >
                 <View
-                  style={{
-                    width: '50%',
+                  style={{ 
+                    width: '40%',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
@@ -100,7 +117,7 @@ export default class Afazeres extends React.Component {
                 </View>
                 <View
                   style={{
-                    width: '25%',
+                    width: '30%',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
@@ -108,13 +125,13 @@ export default class Afazeres extends React.Component {
                 </View>
                 <View
                   style={{
-                    width: '25%',
+                    width: '30%',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
                   <Text style={styles.text2}>{item.data}</Text>
                 </View>
-              </View>);
+              </TouchableOpacity>);
             }}
             keyExtractor={item => item.id}
           />
@@ -192,7 +209,6 @@ const styles = StyleSheet.create({
 
   text1: {
     fontSize: Dimensions.get('window').width / 15,
-    margin: 15,
     color: 'white',
     textAlign: 'center',
     alignItems: 'center',
@@ -204,13 +220,11 @@ const styles = StyleSheet.create({
     fontSize: Dimensions.get('window').width / 24,
     color: 'white',
     fontWeight: 'bold',
-    padding: 10,
   },
 
   text3: {
     fontSize: Dimensions.get('window').width / 24,
     color: 'black',
     fontWeight: 'bold',
-    padding: 10,
   },
 });

@@ -107,12 +107,6 @@ export default class Login extends React.Component {
                           console.log('confere');
                           let id = count.toString();
                           this.setUser(id);
-                          /* this.getUser();
-                          setTimeout( () => {
-                            database.ref(`/tarefas/${this.state.userid}/...`)
-                            ...
-                          }, 200);
-                          */
                           navigation.replace('Home');
                         }
                         count++;

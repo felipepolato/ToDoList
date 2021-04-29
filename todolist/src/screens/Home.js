@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: Dimensions.get('window').width / 18,
+    fontSize: Dimensions.get('window').width / 15,
     fontWeight: 'bold',
     color: 'black',
     textAlign: 'center',

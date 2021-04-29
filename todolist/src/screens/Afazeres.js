@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+
   },
 
   containerTarefas: {
@@ -186,6 +187,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#8cb0bf',
     width: '100%',
+    marginBottom: 15,
     height: Dimensions.get('window').width / 10,
   },
 

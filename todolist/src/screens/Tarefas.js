@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8cb0bf',
     width: '100%',
     height: Dimensions.get('window').width / 10,
+    marginBottom: 15,
   },
 
   buttonExit: {

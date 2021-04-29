@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   View,
   Text,
@@ -6,8 +7,6 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-
-
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ export default class Home extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.container2}>
-        <Text style={styles.text}>TAREFAS</Text>
+          <Text style={styles.text}>TAREFAS</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('CreateAfazeres')}
             style={styles.buttonCriar}>
@@ -38,6 +37,12 @@ export default class Home extends React.Component {
             onPress={() => navigation.navigate('Tarefas')}
             style={styles.buttonTarefas}>
             <Text style={styles.text1}>Concluidas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.replace('Login')}
+            style={styles.buttonSair}>
+            <Text style={styles.text1}>Sair</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -77,7 +82,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: 250,
     height: 70,
-    borderRadius: 10
+    borderRadius: 10,
   },
 
   buttonAfazeres: {
@@ -87,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: 250,
     height: 70,
-    borderRadius: 10
+    borderRadius: 10,
   },
 
   buttonCriar: {
@@ -97,7 +102,17 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: 250,
     height: 70,
-    borderRadius: 10
+    borderRadius: 10,
+  },
+
+  buttonSair: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ff4500',
+    marginTop: 30,
+    width: 250,
+    height: 70,
+    borderRadius: 10,
   },
 
   text1: {
@@ -111,6 +126,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     textAlign: 'center',
-    marginLeft: 53
+    marginLeft: 53,
   },
 });

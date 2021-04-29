@@ -23,22 +23,23 @@ export default class CreateAfazeres extends React.Component {
       tarefa: '',
       nome: '',
       data: '',
+      userid: '',
     };
   }
 
+  getUser = async () => {
+    let finalResult = '';
+    try {
+      const result = await AsyncStorage.getItem('userid');
+      finalResult = result;
+    } catch (error) {
+      console.log(error);
+    }
+    this.setState({userid: finalResult});
+  };
+
   render() {
     const {navigation} = this.props;
-
- 
-
-    const getData = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('@storage_Key');
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
-      } catch (e) {
-        // error reading value
-      }
-    };
 
     return (
       <View style={styles.container}>
@@ -76,32 +77,46 @@ export default class CreateAfazeres extends React.Component {
 
               <TouchableOpacity
                 onPress={() => {
-                  let lastID = 0;
+                  this.getUser();
+                  setTimeout(() => {
+                    let lastID = 0;
 
-                  database()
-                    .ref(`/tarefas/${getData()}/`)
-                    .on('value', snapshot => {
-                      let tmp = snapshot.val();
-                      if (tmp != null) {
-                        lastID = tmp.length + 1;
-                      }
-                    });
+                    database()
+                      .ref(`/tarefas/${this.state.userid}/`)
+                      .on('value', snapshot => {
+                        let tmp = snapshot.val();
+                        if (tmp != null) {
+                          lastID = tmp.length + 1;
+                        }
+                      });
 
-                  database().ref(`/tarefas/${getData()}/${lastID}/`).set({
-                    tarefa: this.state.tarefa,
-                    nome: this.state.nome,
-                    data: this.state.data,
-                  });
-
-                  Alert.alert('Alert Title', 'Tarefa Registrada Com Sucesso!', [
-                    {
-                      text: 'OK',
-                      onPress: () => navigation.navigate('Afazeres'),
-                    },
-                  ]);
+                    database()
+                      .ref(`/tarefas/${this.state.userid}/${lastID}/`)
+                      .set({
+                        tarefa: this.state.tarefa,
+                        nome: this.state.nome,
+                        data: this.state.data,
+                      });
+                    Alert.alert(
+                      'Alert Title',
+                      'Tarefa Registrada Com Sucesso!',
+                      [
+                        {
+                          text: 'OK',
+                          onPress: () => navigation.navigate('Afazeres'),
+                        },
+                      ],
+                    );
+                  }, 200);
                 }}
                 style={styles.buttonCreate}>
                 <Text style={styles.text}>Criar Tarefa</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Home')}
+                style={styles.buttonCreate}>
+                <Text style={styles.text}>Voltar</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -118,7 +133,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#084d6e',
   },
-
 
   container2: {
     backgroundColor: '#fff',
@@ -186,6 +200,6 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: Dimensions.get('window').width / 18,
     fontWeight: 'bold',
-    marginLeft: 10
+    marginLeft: 10,
   },
 });

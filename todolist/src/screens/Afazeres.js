@@ -19,24 +19,30 @@ export default class Afazeres extends React.Component {
 
     this.state = {
       data: [],
+      userid: '',
     };
   }
 
-  componentDidMount() {
-    const getData = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('@storage_Key');
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
-      } catch (e) {
-        // error reading value
-      }
-    };
+  getUser = async () => {
+    let finalResult = '';
+    try {
+      const result = await AsyncStorage.getItem('userid');
+      finalResult = result;
+    } catch (error) {
+      console.log(error);
+    }
+    this.setState({userid: finalResult});
+  };
 
-    database()
-      .ref(`/tarefas/${getData()}/`)
-      .on('value', snapshot => {
-        this.setState({data: snapshot.val()});
-      });
+  componentDidMount() {
+    this.getUser();
+    setTimeout(() => {
+      database()
+        .ref(`/tarefas/${this.state.userid}/`)
+        .on('value', snapshot => {
+          this.setState({data: snapshot.val()});
+        });
+    }, 200);
   }
 
   render() {
@@ -44,25 +50,81 @@ export default class Afazeres extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Lista de Tarefas A Fazer</Text>
-
-        <FlatList
-          data={this.state.data}
-          renderItem={({item, index}) => (
-            <View style={styles.containerTarefas}>
-              <Text style={styles.text1}>{item.tarefa}</Text>
-              <Text style={styles.text1}>{item.nome}</Text>
-              <Text style={styles.text1}>{item.data}</Text>
+        <Text style={styles.text}>Lista de Tarefas</Text>
+        <View style={styles.container2}>
+          <View style={styles.topList}>
+            <View
+              style={{
+                width: '50%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderColor: 'rgba(0,0,0.1)',
+                borderWidth: 0.2
+              }}>
+              <Text style={styles.text3}>Tarefa</Text>
             </View>
-          )}
-          keyExtractor={item => item.id}
-        />
+            <View
+              style={{
+                width: '25%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderColor: 'rgba(0,0,0.1)',
+                borderWidth: 0.2
+              }}>
+              <Text style={styles.text3}>Nome</Text>
+            </View>
+            <View
+              style={{
+                width: '25%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderColor: 'rgba(0,0,0.1)',
+                borderWidth: 0.2
+              }}>
+              <Text style={styles.text3}>Data</Text>
+            </View>
+          </View>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
-          style={styles.buttonExit}>
-          <Text style={styles.text}>Voltar</Text>
-        </TouchableOpacity>
+          <FlatList
+            data={this.state.data}
+            renderItem={({item, index}) => {
+              const myNome = item.nome;
+              return (<View style={styles.containerTarefas}>
+                <View
+                  style={{
+                    width: '50%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.text2}>{item.tarefa}</Text>
+                </View>
+                <View
+                  style={{
+                    width: '25%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.text2}>{myNome.length > 15 ? myNome.substring(0, 15) + "..." : myNome}</Text>
+                </View>
+                <View
+                  style={{
+                    width: '25%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.text2}>{item.data}</Text>
+                </View>
+              </View>);
+            }}
+            keyExtractor={item => item.id}
+          />
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+            style={styles.buttonExit}>
+            <Text style={styles.text1}>Voltar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -73,43 +135,82 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ccc',
+    backgroundColor: '#084d6e',
+  },
+
+  container2: {
+    backgroundColor: '#fff',
+    width: Dimensions.get('window').width / 1.1,
+    height: Dimensions.get('window').height / 1.4,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.41,
+    shadowRadius: 9.11,
+
+    elevation: 14,
+  },
+
+  topList: {
+    marginTop: 20,
+    width: '100%',
+    height: Dimensions.get('window').width / 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
 
   containerTarefas: {
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'row',
-    backgroundColor: '#ccc',
-  },
-
-  tabsNavigator: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: Dimensions.get('window').width,
-    padding: 10,
+    backgroundColor: '#8cb0bf',
+    width: '100%',
+    height: Dimensions.get('window').width / 10,
   },
 
   buttonExit: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'yellow',
+    backgroundColor: '#084d6e',
     fontSize: Dimensions.get('window').width / 18,
-    marginBottom: 30,
-    width: 250,
-    height: 80,
+    height: 70,
+    borderRadius: 8,
+    margin: 20,
   },
 
   text: {
-    fontSize: Dimensions.get('window').width / 18,
+    fontSize: Dimensions.get('window').width / 14,
     fontWeight: 'bold',
-    margin: 15,
+    marginTop: 20,
+    marginBottom: 20,
+    color: 'white',
   },
 
   text1: {
-    fontSize: Dimensions.get('window').width / 18,
+    fontSize: Dimensions.get('window').width / 15,
     margin: 15,
+    color: 'white',
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+  },
+
+  text2: {
+    fontSize: Dimensions.get('window').width / 24,
+    color: 'white',
+    fontWeight: 'bold',
+    padding: 10,
+  },
+
+  text3: {
+    fontSize: Dimensions.get('window').width / 24,
+    color: 'black',
+    fontWeight: 'bold',
+    padding: 10,
   },
 });

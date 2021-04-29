@@ -21,18 +21,42 @@ export default class Login extends React.Component {
     this.state = {
       usuario: '',
       senha: '',
+      userid: '',
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      usuario: '',
+      senha: '',
+    });
+  }
 
+  setUser = async value => {
+    try {
+      await AsyncStorage.setItem('userid', value);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getUser = async () => {
+    let finalResult = '';
+    try {
+      const result = await AsyncStorage.getItem('userid');
+      finalResult = result;
+    } catch (error) {
+      console.log(error);
+    }
+    this.setState({userid: finalResult});
+  };
 
   render() {
-
     const storeData = async value => {
       try {
         await AsyncStorage.setItem('@storage_Key', value);
       } catch (e) {
-        // saving error
+        console.log(error);
       }
     };
 
@@ -48,7 +72,6 @@ export default class Login extends React.Component {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-
             <Text style={styles.textHello}>Bem Vindo!</Text>
 
             <View style={styles.container2}>
@@ -73,23 +96,37 @@ export default class Login extends React.Component {
                     .ref('/users/')
                     .on('value', snapshot => {
                       let tmp = snapshot.val();
+                      let count = 0;
 
-                      for(let loop in tmp){
-                        if(tmp[loop] == null) continue;
+                      for (let loop in tmp) {
+                        if (tmp[loop] == null) continue;
                         if (
                           this.state.usuario === tmp[loop].usuario &&
                           this.state.senha === tmp[loop].senha
                         ) {
                           console.log('confere');
-                          navigation.navigate('Home');
-                          storeData(loop)
+                          let id = count.toString();
+                          this.setUser(id);
+                          /* this.getUser();
+                          setTimeout( () => {
+                            database.ref(`/tarefas/${this.state.userid}/...`)
+                            ...
+                          }, 200);
+                          */
+                          navigation.replace('Home');
                         }
-
+                        count++;
                       }
                     });
                 }}
                 style={styles.buttonSend}>
                 <Text style={styles.textBottom}>Entrar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.buttonRegister}
+                onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.textBottom}>Registrar</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -131,6 +168,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#084d6e',
     fontSize: Dimensions.get('window').width / 18,
     marginTop: 30,
+    width: 250,
+    height: 50,
+    borderRadius: 8,
+  },
+
+  buttonRegister: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#084d6e',
+    fontSize: Dimensions.get('window').width / 18,
+    marginTop: 10,
+    marginBottom: 20,
     width: 250,
     height: 50,
     borderRadius: 8,

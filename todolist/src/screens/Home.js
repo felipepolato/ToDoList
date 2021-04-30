@@ -19,8 +19,8 @@ export default class Home extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Text style={styles.text}>TAREFAS</Text>
         <View style={styles.container2}>
-          <Text style={styles.text}>TAREFAS</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('CreateAfazeres')}
             style={styles.buttonCriar}>
@@ -75,11 +75,10 @@ const styles = StyleSheet.create({
     elevation: 14,
   },
 
-  buttonTarefas: {
+  buttonCriar: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#8cb0bf',
-    marginTop: 30,
+    backgroundColor: '#45637a',
     width: 250,
     height: 70,
     borderRadius: 10,
@@ -95,10 +94,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  buttonCriar: {
+  buttonTarefas: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#45637a',
+    backgroundColor: '#8cb0bf',
     marginTop: 30,
     width: 250,
     height: 70,
@@ -115,17 +114,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
+  text: {
+    fontSize: Dimensions.get('window').width / 15,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+
   text1: {
     fontSize: Dimensions.get('window').width / 18,
     fontWeight: 'bold',
     color: 'white',
-  },
-
-  text: {
-    fontSize: Dimensions.get('window').width / 15,
-    fontWeight: 'bold',
-    color: 'black',
-    textAlign: 'center',
-    marginLeft: 53,
   },
 });

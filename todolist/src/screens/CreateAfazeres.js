@@ -72,8 +72,8 @@ export default class CreateAfazeres extends React.Component {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <View style={styles.container2}>
               <Text style={styles.text1}>Criar Lista de Tarefas</Text>
+            <View style={styles.container2}>
 
               <TextInput
                 value={this.state.tarefa}
@@ -129,7 +129,7 @@ export default class CreateAfazeres extends React.Component {
 
               <TouchableOpacity
                 onPress={() => navigation.navigate('Home')}
-                style={styles.buttonCreate}>
+                style={styles.buttonVoltar}>
                 <Text style={styles.text}>Voltar</Text>
               </TouchableOpacity>
             </View>
@@ -193,6 +193,17 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
 
+  buttonVoltar: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#084d6e',
+    fontSize: Dimensions.get('window').width / 18,
+    marginTop: 10,
+    width: 250,
+    height: 70,
+    borderRadius: 8,
+  },
+
   inputInformation: {
     backgroundColor: 'white',
     fontSize: Dimensions.get('window').width / 18,
@@ -212,8 +223,9 @@ const styles = StyleSheet.create({
   },
 
   text1: {
-    fontSize: Dimensions.get('window').width / 18,
+    fontSize: Dimensions.get('window').width / 16,
     fontWeight: 'bold',
-    marginLeft: 10,
+    color: 'white',
+    marginBottom: 20
   },
 });

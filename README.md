@@ -18,7 +18,8 @@ Projeto para teste de habilidades em React Native. A ideia foi desenvolver um ap
 - CSS3
 
 
-💾️ Como baixar/testar o projeto
+💾️ Como baixar/testar o projeto:
+
 Você irá precisar instalar o Git, NodeJS + Visual Studio code.
 
 # Versões mínimas ou superiores.
@@ -28,6 +29,7 @@ v12.19.0
 $ npm -v
 6.14.5
 Para configurar, no bash digite os seguinte códigos:
+
 # Clonar o repositório
 $ git clone https://github.com/felipepolato/ToDoList.git
 
@@ -46,11 +48,14 @@ $ npm start
 #Pronto projeto abrirá em seu navegador padrão
 Agora é só testar em seu navegador!
 
-Desenvolvido com por:
+# Desenvolvido com por:
 
-Felipe Polato Gonçalves
+### Autor
+---
+
+Feito com ?? por Felipe Polato Gonçalves ???? Entre em contato!
+
 
 LinkedIn:
-https://www.linkedin.com/in/felipe-polato-gon%C3%A7alves-a82317201/
 https://www.linkedin.com/in/felipe-polato-gon%C3%A7alves-a82317201/
 

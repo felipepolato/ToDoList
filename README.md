@@ -20,6 +20,7 @@ CSS3
 
 💾️ Como baixar/testar o projeto
 Você irá precisar instalar o Git, NodeJS + Visual Studio code.
+
 # Versões mínimas ou superiores.
 $ node -v
 v12.19.0
@@ -28,13 +29,13 @@ $ npm -v
 6.14.5
 Para configurar, no bash digite os seguinte códigos:
 # Clonar o repositório
-$ git clone https://github.com/future4code/dumont-labe-food8.git
+$ git clone https://github.com/felipepolato/ToDoList.git
 
 #Entrar no diretório
-$ cd dumont-labe-food
+$ cd ToDoList
 
 #Abrir projeto no VsCode ou com seu prompt de comando de preferência
-code . ||  cd dumont-labe-food (Passo acima) 
+code . ||  cd ToDoList (Passo acima) 
 
 #Com o terminal aberto rodar o comando
 $ npm install (para instalar as dependências necessárias)

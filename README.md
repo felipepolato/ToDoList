@@ -10,13 +10,12 @@ Projeto para teste de habilidades em React Native. A ideia foi desenvolver um ap
 🚀️ Apresentação do aplicativo
 
 🚀️ Tecnologias utilizadas
-- [Node.js]
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
-# Firebase
-# React Navigation
-# Async Storage
-# CSS3
+- Node.js
+- React Native
+- Firebase
+- React Navigation
+- Async Storage
+- CSS3
 
 
 💾️ Como baixar/testar o projeto

@@ -53,7 +53,7 @@ Agora é só testar em seu navegador!
 ### Autor
 ---
 
-Feito com ?? por Felipe Polato Gonçalves ???? Entre em contato!
+Feito com ❤️ por Felipe Polato Gonçalves 👋🏽 Entre em contato!
 
 
 LinkedIn:

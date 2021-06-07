@@ -1,8 +1,8 @@
 📑️ Índice
-O projeto,
-Apresentação,
-Como usar,
-Contato
+# O projeto
+# Apresentação
+# Como usar
+# Contato
 
 📝️ Sobre
 Projeto para teste de habilidades em React Native. A ideia foi desenvolver um aplicativo parecido com o ToDoList comum, onde o usuário cria suas tarefas e organiça entre feitas e a realizar. 
@@ -10,11 +10,11 @@ Projeto para teste de habilidades em React Native. A ideia foi desenvolver um ap
 🚀️ Apresentação do aplicativo
 
 🚀️ Tecnologias utilizadas
-React Native
-Firebase
-React Navigation
-Async Storage
-CSS3
+# React Native
+# Firebase
+# React Navigation
+# Async Storage
+# CSS3
 
 
 💾️ Como baixar/testar o projeto

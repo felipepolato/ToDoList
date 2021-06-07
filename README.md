@@ -10,7 +10,7 @@ Projeto para teste de habilidades em React Native. A ideia foi desenvolver um ap
 🚀️ Apresentação do aplicativo
 
 🚀️ Tecnologias utilizadas
-- [Node.js](https://nodejs.org/en/)
+- [Node.js]
 - [React](https://pt-br.reactjs.org/)
 - [React Native](https://reactnative.dev/)
 # Firebase

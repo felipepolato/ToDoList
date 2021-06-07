@@ -1,9 +1,8 @@
 📑️ Índice
-O projeto
-Apresentação
-Como usar
+O projeto,
+Apresentação,
+Como usar,
 Contato
-Licença
 
 📝️ Sobre
 Projeto para teste de habilidades em React Native. A ideia foi desenvolver um aplicativo parecido com o ToDoList comum, onde o usuário cria suas tarefas e organiça entre feitas e a realizar. 
@@ -47,4 +46,10 @@ $ npm start
 Agora é só testar em seu navegador!
 
 Desenvolvido com por:
+
 Felipe Polato Gonçalves
+
+LinkedIn:
+https://www.linkedin.com/in/felipe-polato-gon%C3%A7alves-a82317201/
+https://www.linkedin.com/in/felipe-polato-gon%C3%A7alves-a82317201/
+
